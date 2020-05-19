@@ -10,6 +10,24 @@ import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-nativ
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import Constants from 'expo-constants';
+import { connect } from 'react-redux';
+import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+
+const mapStateToProps = state => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchDishes: () => dispatch(fetchDishes()),
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos()),
+  fetchLeaders: () => dispatch(fetchLeaders()),
+})
 
 
 const MenuNavigator = createStackNavigator({
@@ -182,9 +200,18 @@ const MainNavigator = createDrawerNavigator({
       }
 }, {
   drawerBackgroundColor: '#D1C4E9',
-  contentComponent: CustomDrawerContentComponent
+  contentComponent: CustomDrawerContentComponent,
+ 
+  componentDidMount() {
+    this.props.fetchDishes();
+    this.props.fetchComments();
+    this.props.fetchPromos();
+    this.props.fetchLeaders();
+  }
+  
 
 });
+
 
 class Main extends Component { 
     
@@ -196,6 +223,7 @@ class Main extends Component {
         );
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -222,4 +250,4 @@ const styles = StyleSheet.create({
   });
   
 
-export default Main;
+  export default connect(mapStateToProps, mapDispatchToProps)(Main);
