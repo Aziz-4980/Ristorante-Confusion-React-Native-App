@@ -15,10 +15,10 @@ import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/
 
 const mapStateToProps = state => {
   return {
-    dishes: state.dishes,
-    comments: state.comments,
-    promotions: state.promotions,
-    leaders: state.leaders
+    // dishes: state.dishes,
+    // comments: state.comments,
+    // promotions: state.promotions,
+    // leaders: state.leaders
   }
 }
 
@@ -202,12 +202,6 @@ const MainNavigator = createDrawerNavigator({
   drawerBackgroundColor: '#D1C4E9',
   contentComponent: CustomDrawerContentComponent,
  
-  componentDidMount() {
-    this.props.fetchDishes();
-    this.props.fetchComments();
-    this.props.fetchPromos();
-    this.props.fetchLeaders();
-  }
   
 
 });
@@ -215,6 +209,13 @@ const MainNavigator = createDrawerNavigator({
 
 class Main extends Component { 
     
+
+  componentDidMount() {
+    this.props.fetchDishes();
+    this.props.fetchComments();
+    this.props.fetchPromos();
+    this.props.fetchLeaders();
+  }
     render(){
         return(
             <View style={{ flex: 1, paddingTop: Platform.OS ==='ios' ? 0 : Constants.statusBarHeight }}>

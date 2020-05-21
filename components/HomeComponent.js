@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 // import { View, Text } from 'react-native';
 import { Text, ScrollView, View } from 'react-native';
 import { Card } from 'react-native-elements';
-import { DISHES } from '../shared/dishes';
-import { PROMOTIONS } from '../shared/promotions';
-import { LEADERS } from '../shared/leaders';
+// import { DISHES } from '../shared/dishes';
+// import { PROMOTIONS } from '../shared/promotions';
+// import { LEADERS } from '../shared/leaders';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 
 const mapStateToProps = state => {
     return {
       dishes: state.dishes,
-      comments: state.comments,
+    //   comments: state.comments,
       promotions: state.promotions,
       leaders: state.leaders
     }
@@ -26,9 +26,9 @@ function RenderItem(props) {
                     featuredTitle={item.name}
                     featuredSubtitle={item.designation}
 
-                    image={{uri: baseUrl + item.image}}>                    <Text
-                        style={{margin: 10}}>
-                        {item.description}</Text>
+                    image={{uri: baseUrl + item.image}}   
+                     style={{margin: 10}}>
+                       <Text>{item.description}</Text>
                 </Card>
             );
         }

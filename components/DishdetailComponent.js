@@ -3,8 +3,8 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
+// import { DISHES } from '../shared/dishes';
+// import { COMMENTS } from '../shared/comments';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 
@@ -22,7 +22,8 @@ function RenderDish(props) {
 
             <Card
                 featuredTitle={dish.name}
-                image={{uri: baseUrl + dish.image}}>                <Text style={{ margin: 10 }}>
+                image={{uri: baseUrl + dish.image}}>                
+                <Text >
                     {dish.description}
                 </Text>
                 <Icon
