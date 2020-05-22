@@ -5,6 +5,7 @@ import { ListItem } from 'react-native-elements';
 import { FlatList, ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -49,16 +50,18 @@ class AboutUs extends Component{
         
         return(
             <ScrollView>
-                <History />
-                <Card title="Corporate Leadership">
-                <FlatList 
-                    data={this.props.leaders.leaders}
-                    renderItem={renderLeader}
-                    keyExtractor={item => item.id.toString()}
-                    />
-
+                    <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+                    <History />
+                    <Card
+                        title='Corporate Leadership'>
+                    <FlatList 
+                        data={this.props.leaders.leaders}
+                        renderItem={renderLeader}
+                        keyExtractor={item => item.id.toString()}
+                        />
                     </Card>
-            </ScrollView>
+                    </Animatable.View>
+                </ScrollView>
         );
     }
 }
