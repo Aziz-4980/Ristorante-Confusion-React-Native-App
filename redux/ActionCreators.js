@@ -1,6 +1,48 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
+export const addComment = (comment) => ({
+  type: ActionTypes.ADD_COMMENT,
+  payload: comment
+});
+
+export const postComment = (dishId, rating, author, comment) => (dishpatch) => {
+
+  const newComment = {
+    dishId: dishId,
+    rating: rating,
+    author: author,
+    comment: comment
+  }
+  newComment.date = new Date().toISOString();
+  return fetch(baseUrl + 'comments', {
+    method: 'POST',
+    body: JSON.stringify(newComment),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'same-origin'
+  })
+  .then(response => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+          }
+        },
+        error => {
+              var errmess = new Error(error.message);
+              throw errmess;
+        })
+
+        .then(response => response.json())
+        .then(response => dishpatch(addComment(response)))
+        .catch(error => { console.log('Post comments', error.message)
+        alert('Your comment could not be posted\nError: '+ error.message); })
+}
+
 export const fetchComments = () => (dispatch) => {
     return fetch(baseUrl + 'comments')
     .then(response => {
@@ -69,7 +111,7 @@ export const addDishes = (dishes) => ({
 });
 
 export const fetchPromos = () => (dispatch) => {
-    
+
     dispatch(promosLoading());
 
     return fetch(baseUrl + 'promotions')
@@ -106,7 +148,7 @@ export const addPromos = (promos) => ({
 });
 
 export const fetchLeaders = () => (dispatch) => {
-    
+
     dispatch(leadersLoading());
 
     return fetch(baseUrl + 'leaders')
@@ -142,9 +184,7 @@ export const addLeaders = (leaders) => ({
     payload: leaders
 });
 
-
 export const postFavorite = (dishId)  => (dispatch) => {
-
     setTimeout(() => {
         dispatch(addFavorite(dishId));
     }, 2000);
